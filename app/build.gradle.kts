@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.serialization)
-    id("com.google.devtools.ksp")
+    kotlin("kapt")
     id("androidx.room")
 }
 
@@ -68,7 +68,7 @@ dependencies {
     implementation(libs.androidx.work.runtime.ktx)
     //Hilt
     implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
+    kapt(libs.hilt.compiler)
     implementation (libs.androidx.hilt.work)
     implementation (libs.androidx.hilt.navigation.compose)
 
@@ -80,8 +80,11 @@ dependencies {
 
     //Room
     implementation(libs.androidx.room.runtime)
-    ksp(libs.androidx.room.compiler)
+    kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
+
+    //location
+    implementation(libs.play.services.location)
 
     implementation(libs.kotlinx.serialization.json)
 
