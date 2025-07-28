@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.serialization)
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
     id("androidx.room")
 }
 
@@ -20,7 +20,7 @@ android {
     defaultConfig {
         applicationId = "dev.sahildesai.theweatherapp"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
         buildConfigField("String", "BASE_URL", "\"https://api.openweathermap.org/data/3.0/\"")
@@ -41,8 +41,13 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
+    kotlin {
+        jvmToolchain(11)
+    }
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>().configureEach {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+        }
     }
     room {
         schemaDirectory("$projectDir/schemas")
@@ -63,7 +68,7 @@ dependencies {
     implementation(libs.androidx.work.runtime.ktx)
     //Hilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
     implementation (libs.androidx.hilt.work)
     implementation (libs.androidx.hilt.navigation.compose)
 
@@ -75,7 +80,7 @@ dependencies {
 
     //Room
     implementation(libs.androidx.room.runtime)
-    kapt(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
     implementation(libs.kotlinx.serialization.json)
