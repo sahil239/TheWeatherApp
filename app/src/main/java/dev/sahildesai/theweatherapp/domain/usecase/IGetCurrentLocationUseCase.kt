@@ -1,4 +1,4 @@
-package dev.sahildesai.theweatherapp.domain
+package dev.sahildesai.theweatherapp.domain.usecase
 
 import android.location.Location
 

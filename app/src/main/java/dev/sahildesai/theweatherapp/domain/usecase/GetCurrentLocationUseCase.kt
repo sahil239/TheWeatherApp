@@ -1,7 +1,7 @@
-package dev.sahildesai.theweatherapp.domain
+package dev.sahildesai.theweatherapp.domain.usecase
 
 import android.location.Location
-import dev.sahildesai.theweatherapp.data.LocationService
+import dev.sahildesai.theweatherapp.data.utils.LocationService
 
 class GetCurrentLocationUseCase(
     private val locationService: LocationService

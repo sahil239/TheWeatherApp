@@ -1,4 +1,4 @@
-package dev.sahildesai.theweatherapp.data
+package dev.sahildesai.theweatherapp.data.utils
 
 import android.Manifest
 import android.annotation.SuppressLint

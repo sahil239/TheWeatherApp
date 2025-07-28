@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -17,13 +19,22 @@ android {
         buildConfig = true
     }
 
+    val localProperties = Properties().apply {
+        val localPropsFile = rootProject.file("local.properties")
+        if (localPropsFile.exists()) {
+            load(localPropsFile.inputStream())
+        }
+    }
+    val weatherApiKey = localProperties.getProperty("OPEN_WEATHER_API_KEY") ?: ""
+
     defaultConfig {
         applicationId = "dev.sahildesai.theweatherapp"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
         buildConfigField("String", "BASE_URL", "\"https://api.openweathermap.org/data/3.0/\"")
+        buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"$weatherApiKey\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -77,7 +88,7 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.okhttp.logging.interceptor)
     implementation(libs.coil.kt.coil.compose)
-
+    implementation(libs.retrofit.kotlinx.serialization.converter)
     //Room
     implementation(libs.androidx.room.runtime)
     kapt(libs.androidx.room.compiler)
